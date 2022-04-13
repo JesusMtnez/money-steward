@@ -1,7 +1,7 @@
 ThisBuild / organization := "com.example"
 ThisBuild / scalaVersion := "3.1.0"
 
-val zioV = "1.0.13"
+val zioV = "1.0.14"
 val squantsV = "1.8.3"
 
 lazy val core = (project in file("core"))
