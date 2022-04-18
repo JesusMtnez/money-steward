@@ -1,9 +1,15 @@
 [tool.poetry]
 name = "money-steward"
 version = "0.0.1"
-description = ""
-authors = ["JesusMtnez"]
-license = "MIT"
+description = "Personal finances assistant"
+authors = [
+    "JesusMtnez <jesusmartinez93@gmail.com>"
+]
+readme = "README.md"
+repository = "https://github.com/JesusMtnez/money-steward"
+homepage = "https://jesusmtnez.es/money-steward"
+keywords = ["personal", "finances", "assistant" ]
+
 packages = [
   { include = "money-steward" }
 ]
