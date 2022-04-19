@@ -4,18 +4,22 @@
   inputs= {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    poetry2nix.url = "github:nix-community/poetry2nix";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, poetry2nix }:
+  outputs = { self, nixpkgs, flake-utils , poetry2nix}:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
-          # overlays = [ self.overlay ];
+          overlays = [ poetry2nix.overlay ];
         };
 
-        packageName = "money-steward";
+        packageName = "money_steward";
 
         app = pkgs.poetry2nix.mkPoetryApplication {
           projectDir = ./.;
@@ -29,6 +33,7 @@
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
+            python310
             poetry
           ];
         };
