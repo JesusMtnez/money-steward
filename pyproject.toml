@@ -10,12 +10,8 @@ repository = "https://github.com/JesusMtnez/money-steward"
 homepage = "https://jesusmtnez.es/money-steward"
 keywords = ["personal", "finances", "assistant" ]
 
-packages = [
-  { include = "money_steward" }
-]
-
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 click = "^8.1.2"
 
 [tool.poetry.dev-dependencies]

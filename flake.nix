@@ -19,11 +19,13 @@
           overlays = [ poetry2nix.overlay ];
         };
 
+        python = pkgs.python39;
+
         packageName = "money_steward";
 
         app = pkgs.poetry2nix.mkPoetryApplication {
           projectDir = ./.;
-          python = pkgs.python310;
+          python = python;
         };
       in
       {
@@ -33,7 +35,7 @@
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
-            python310
+            python
             poetry
           ];
         };
