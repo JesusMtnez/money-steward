@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -12,28 +12,42 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, devshell, ... }:
-    let
-      forSystem = system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ devshell.overlays.default ];
-          };
-          jdk = pkgs.jdk11;
-        in
-        {
-          devShell = pkgs.devshell.mkShell {
-            name = "money-steward-shell";
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        jreOverlay = f: p: {
+          jdk = p.jdk17_headless;
+          jre = p.jdk17_headless;
+        };
+
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ devshell.overlays.default jreOverlay ];
+        };
+      in
+      {
+        devShells = rec {
+          default = scala;
+
+          scala = pkgs.devshell.mkShell {
+            name = "scala-dev-shell";
+
             commands = [
-              { package = pkgs.sbt.override { jre = jdk; }; }
+              { package = pkgs.sbt; }
+              { package = pkgs.scala-cli; }
+              # pkgs.nodejs
+              # pkgs.yarn
             ];
 
-            devshell.packages = [
-              jdk
+            packages = [
+              pkgs.jdk
               pkgs.nixpkgs-fmt
+            ];
+
+            env = [
+              { name = "JAVA_HOME"; value = "${pkgs.jdk}"; }
             ];
           };
         };
-    in
-    { } // flake-utils.lib.eachDefaultSystem forSystem;
+      }
+    );
 }
