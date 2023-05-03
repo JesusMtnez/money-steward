@@ -1,20 +1,26 @@
-package es.jesusmtnez.ff
+package es.jesusmtnez.ff.api
 
+import es.jesusmtnez.ff.*
 import io.circe.Decoder
 import sttp.client3.*
 import sttp.client3.circe.*
-import sttp.model.{Method, Uri}
+import sttp.model.*
 
 object RequestConstructor {
-  def runRequestWithNoBody[R: Decoder](
+  def requestWithNoBody[R: Decoder](
+      host: Uri,
       auth: Auth,
       method: Method,
-      path: Uri.PathSegments
+      endpoint: String
   ) =
     val req = basicRequest
       .method(
         method,
-        uri"http://firefly.home.es/api/".addPathSegments(path.segments)
+        host.withWholePath(endpoint)
+      )
+      .header(
+        Header("User-Agent", "fireflyiii.scala/0.0.1"),
+        replaceExisting = true
       )
       .response(asJson[R])
 

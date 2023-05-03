@@ -12,7 +12,7 @@ final case class SystemInfo(
 )
 
 object SystemInfo:
-  given Decoder[SystemInfo] = new Decoder[SystemInfo] {
+  given Decoder[SystemInfo] = new Decoder[SystemInfo]:
     final def apply(c: HCursor): Decoder.Result[SystemInfo] =
       (
         c.downField("data").downField("version").as[String],
@@ -21,4 +21,3 @@ object SystemInfo:
         c.downField("data").downField("os").as[String],
         c.downField("data").downField("driver").as[String]
       ).mapN(SystemInfo.apply)
-  }

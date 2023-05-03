@@ -1,0 +1,27 @@
+package es.jesusmtnez.ff.api
+
+import io.circe.Error
+import es.jesusmtnez.ff.*
+import es.jesusmtnez.ff.data.SystemInfo
+import sttp.client3.*
+import sttp.model.{Method, Uri}
+
+trait About:
+  def systemInfo: Response[Either[ResponseException[String, Error], SystemInfo]]
+
+object About:
+
+  private val defaultBackend = HttpClientSyncBackend()
+
+  def apply(host: Uri, auth: Auth): About =
+    new About:
+      override def systemInfo
+          : Response[Either[ResponseException[String, Error], SystemInfo]] =
+        RequestConstructor
+          .requestWithNoBody[SystemInfo](
+            host,
+            auth,
+            Method.GET,
+            "/api/v1/about"
+          )
+          .send(defaultBackend)
