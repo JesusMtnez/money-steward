@@ -10,6 +10,17 @@ val catsV = "2.9.0"
 val catsEffectV = "3.4.8"
 val munitV = "0.7.29"
 val munitCE3V = "1.0.7"
+val sttpV = "3.8.15"
+
+lazy val fireflyiii4s = project
+  .in(file("fireflyiii4s"))
+  .settings(
+    name := "fireflyiii4s",
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.client3" %% "core" % sttpV,
+      "com.softwaremill.sttp.client3" %% "circe" % sttpV
+    )
+  )
 
 lazy val core = project
   .in(file("core"))
@@ -27,6 +38,9 @@ lazy val core = project
 lazy val root = project
   .in(file("."))
   .settings(publish / skip := true)
-  .aggregate(core)
+  .aggregate(
+    fireflyiii4s,
+    core
+  )
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt Test/scalafmt")
