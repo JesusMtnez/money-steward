@@ -13,7 +13,7 @@ val munitCE3V = "1.0.7"
 val sttpV = "3.8.15"
 
 lazy val fireflyiii4s = project
-  .in(file("fireflyiii4s"))
+  .in(file("modules/fireflyiii4s"))
   .settings(
     name := "fireflyiii4s",
     libraryDependencies ++= Seq(
@@ -24,7 +24,7 @@ lazy val fireflyiii4s = project
   )
 
 lazy val core = project
-  .in(file("core"))
+  .in(file("modules/core"))
   .settings(
     name := "money-steward",
     libraryDependencies ++= Seq(
