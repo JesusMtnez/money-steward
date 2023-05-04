@@ -18,7 +18,8 @@ lazy val fireflyiii4s = project
     name := "fireflyiii4s",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.client3" %% "core" % sttpV,
-      "com.softwaremill.sttp.client3" %% "circe" % sttpV
+      "com.softwaremill.sttp.client3" %% "circe" % sttpV,
+      "io.circe" %% "circe-generic" % "0.14.5"
     )
   )
 

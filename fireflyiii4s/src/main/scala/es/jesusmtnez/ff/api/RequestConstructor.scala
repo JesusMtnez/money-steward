@@ -1,13 +1,14 @@
 package es.jesusmtnez.ff.api
 
 import es.jesusmtnez.ff.*
+import es.jesusmtnez.ff.data.FireflyError
 import io.circe.Decoder
 import sttp.client3.*
 import sttp.client3.circe.*
 import sttp.model.*
 
 object RequestConstructor {
-  def requestWithNoBody[R: Decoder](
+  def requestWithNoBody[R: Decoder, E: Decoder](
       host: Uri,
       auth: Auth,
       method: Method,
@@ -22,7 +23,7 @@ object RequestConstructor {
         Header("User-Agent", "fireflyiii.scala/0.0.1"),
         replaceExisting = true
       )
-      .response(asJson[R])
+      .response(asJsonEither[E, R])
 
     setAuth(auth)(req)
 

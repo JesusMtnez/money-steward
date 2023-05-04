@@ -2,12 +2,13 @@ package es.jesusmtnez.ff.api
 
 import io.circe.Error
 import es.jesusmtnez.ff.*
-import es.jesusmtnez.ff.data.SystemInfo
+import es.jesusmtnez.ff.data.*
 import sttp.client3.*
 import sttp.model.{Method, Uri}
 
 trait About:
-  def systemInfo: Response[Either[ResponseException[String, Error], SystemInfo]]
+  def systemInfo
+      : Response[Either[ResponseException[FireflyError, Error], SystemInfo]]
 
 object About:
 
@@ -15,10 +16,11 @@ object About:
 
   def apply(host: Uri, auth: Auth): About =
     new About:
-      override def systemInfo
-          : Response[Either[ResponseException[String, Error], SystemInfo]] =
+      override def systemInfo: Response[
+        Either[ResponseException[FireflyError, Error], SystemInfo]
+      ] =
         RequestConstructor
-          .requestWithNoBody[SystemInfo](
+          .requestWithNoBody[SystemInfo, FireflyError](
             host,
             auth,
             Method.GET,
