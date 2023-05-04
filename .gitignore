@@ -14,3 +14,6 @@ src_managed/
 .bloop/
 metals.sbt
 .vscode
+
+# node / yarn
+node_modules/

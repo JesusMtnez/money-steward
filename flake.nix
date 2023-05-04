@@ -34,13 +34,13 @@
             commands = [
               { package = pkgs.sbt; }
               { package = pkgs.scala-cli; }
-              # pkgs.nodejs
-              # pkgs.yarn
             ];
 
             packages = [
               pkgs.jdk
               pkgs.nixpkgs-fmt
+              # pkgs.nodejs
+              pkgs.yarn
             ];
 
             env = [

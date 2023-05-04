@@ -1,0 +1,17 @@
+{
+  "name": "money-steward-webapp",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "@scala-js/vite-plugin-scalajs": "^1.0.0"
+  }
+}

@@ -1,3 +1,5 @@
+import org.scalajs.linker.interface.ModuleSplitStyle
+
 val scalaV = "3.2.2"
 
 ThisBuild / organization := "es.jesusmtnez"
@@ -21,6 +23,19 @@ lazy val fireflyiii4s = project
       "com.softwaremill.sttp.client3" %% "circe" % sttpV,
       "io.circe" %% "circe-generic" % "0.14.5"
     )
+  )
+
+lazy val webapp = project
+  .in(file("modules/webapp"))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(
+    name := "money-steward-webapp",
+    scalaJSUseMainModuleInitializer := true,
+    scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.ESModule)
+        .withModuleSplitStyle(ModuleSplitStyle.SmallestModules)
+    },
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0"
   )
 
 lazy val core = project
