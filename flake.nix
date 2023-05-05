@@ -32,15 +32,19 @@
             name = "scala-dev-shell";
 
             commands = [
+              {
+                name = "mkdocs";
+                help = "fast, simple and downright gorgeous static site generator";
+                package = (pkgs.python311.withPackages (ps: [ ps.mkdocs ps.mkdocs-material ]));
+              }
               { package = pkgs.sbt; }
-              { package = pkgs.scala-cli; }
+              { package = pkgs.yarn; }
             ];
 
             packages = [
               pkgs.jdk
               pkgs.nixpkgs-fmt
               pkgs.nodejs
-              pkgs.yarn
             ];
 
             env = [
