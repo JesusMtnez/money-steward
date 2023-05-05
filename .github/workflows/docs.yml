@@ -10,7 +10,7 @@ on:
     paths: [ 'docs/**', "mkdocs.yml", "flake.*"]
 
 jobs:
-  ci:
+  docs:
     name: Build Site
     runs-on: ubuntu-latest
     steps:
