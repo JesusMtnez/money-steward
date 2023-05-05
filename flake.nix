@@ -39,7 +39,7 @@
             packages = [
               pkgs.jdk
               pkgs.nixpkgs-fmt
-              # pkgs.nodejs
+              pkgs.nodejs
               pkgs.yarn
             ];
 

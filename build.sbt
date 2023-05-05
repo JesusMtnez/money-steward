@@ -30,12 +30,14 @@ lazy val webapp = project
   .enablePlugins(ScalaJSPlugin)
   .settings(
     name := "money-steward-webapp",
-    scalaJSUseMainModuleInitializer := true,
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.ESModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallestModules)
     },
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0"
+    libraryDependencies ++= Seq(
+      "io.indigoengine" %%% "tyrian-io" % "0.6.2",
+      "org.scala-js" %%% "scalajs-dom" % "2.4.0"
+    )
   )
 
 lazy val core = project
