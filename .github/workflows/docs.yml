@@ -1,0 +1,34 @@
+---
+name: docs
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'docs/**', "mkdocs.yml", "flake.*"]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'docs/**', "mkdocs.yml", "flake.*"]
+
+jobs:
+  docs:
+    name: Build Site
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3.5.2
+
+    - name: "Install Nix ❄️"
+      uses: cachix/install-nix-action@v20
+
+    - name: "Build 🛠️"
+      run: "nix develop -c mkdocs build"
+
+    - name: "Deploy 🚀"
+      if: ${{ github.ref == 'refs/heads/main' }}
+      uses: crazy-max/ghaction-github-pages@v3
+      with:
+        target_branch: gh-pages
+        build_dir: site
+        keep_history: false
+        fqdn: jesusmtnez.es
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

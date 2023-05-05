@@ -1,0 +1,21 @@
+site_name: Money Steward
+site_url: https://jesusmtnez.es/money-steward
+
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+
+  palette:
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode

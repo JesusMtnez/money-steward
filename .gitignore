@@ -17,3 +17,6 @@ metals.sbt
 
 # node / yarn
 node_modules/
+
+# mkdocs
+site/
