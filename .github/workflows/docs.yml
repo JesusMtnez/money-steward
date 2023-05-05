@@ -20,7 +20,7 @@ jobs:
       uses: cachix/install-nix-action@v20
 
     - name: "Build 🛠️"
-      run: "nix develop -c mkdocs build"
+      run: "nix develop .#docs -c mkdocs build"
 
     - name: "Deploy 🚀"
       if: ${{ github.ref == 'refs/heads/main' }}

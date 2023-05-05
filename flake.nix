@@ -32,11 +32,6 @@
             name = "scala-dev-shell";
 
             commands = [
-              {
-                name = "mkdocs";
-                help = "fast, simple and downright gorgeous static site generator";
-                package = (pkgs.python311.withPackages (ps: [ ps.mkdocs ps.mkdocs-material ]));
-              }
               { package = pkgs.sbt; }
               { package = pkgs.yarn; }
             ];
@@ -49,6 +44,14 @@
 
             env = [
               { name = "JAVA_HOME"; value = "${pkgs.jdk}"; }
+            ];
+          };
+
+          docs = pkgs.devshell.mkShell {
+            name = "docs-shell";
+
+            packages = [
+              (pkgs.python311.withPackages (ps: [ ps.mkdocs ps.mkdocs-material ]))
             ];
           };
         };
