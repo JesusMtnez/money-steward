@@ -7,8 +7,11 @@ import sttp.client3.*
 import sttp.model.{Method, Uri}
 
 trait About:
-  def systemInfo
-      : Response[Either[ResponseException[FireflyError, Error], SystemInfo]]
+  def systemInfo: Response[
+    Either[ResponseException[FireflyError, Error], FireflySingleResponse[
+      SystemInfo
+    ]]
+  ]
 
 object About:
 
@@ -17,7 +20,9 @@ object About:
   def apply(host: Uri, auth: Auth): About =
     new About:
       override def systemInfo: Response[
-        Either[ResponseException[FireflyError, Error], SystemInfo]
+        Either[ResponseException[FireflyError, Error], FireflySingleResponse[
+          SystemInfo
+        ]]
       ] =
         RequestConstructor
           .requestWithNoBody[SystemInfo, FireflyError](
