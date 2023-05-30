@@ -54,6 +54,14 @@
           ];
         };
 
+        packages.docs = pkgs.stdenv.mkDerivation {
+          name = "money-steward-docs";
+          src = ./.;
+          nativeBuildInputs = [ (pkgs.python311.withPackages (ps: [ ps.mkdocs ps.mkdocs-material ])) ];
+          buildPhase = "mkdocs build --site-dir $out";
+          dontInstal = true;
+        };
+
         devshells.docs = {
           name = "docs-shell";
 

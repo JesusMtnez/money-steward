@@ -20,14 +20,14 @@ jobs:
       uses: cachix/install-nix-action@v20
 
     - name: "Build 🛠️"
-      run: "nix develop .#docs -c mkdocs build"
+      run: "nix build .#docs"
 
     - name: "Deploy 🚀"
       if: ${{ github.ref == 'refs/heads/main' }}
       uses: crazy-max/ghaction-github-pages@v3
       with:
         target_branch: gh-pages
-        build_dir: site
+        build_dir: result
         keep_history: false
         fqdn: jesusmtnez.es
       env:
