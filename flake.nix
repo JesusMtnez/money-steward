@@ -2,7 +2,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     devshell = {
       url = "github:numtide/devshell";
@@ -10,50 +13,55 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, devshell, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        jreOverlay = f: p: {
-          jdk = p.jdk17_headless;
-          jre = p.jdk17_headless;
-        };
+  outputs = inputs@{ self, nixpkgs, flake-parts, devshell, ... }:
 
-        pkgs = import nixpkgs {
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ devshell.flakeModule ];
+
+      systems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+
+      perSystem = { pkgs, system, ... }: {
+        _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [ devshell.overlays.default jreOverlay ];
+          overlays = [
+            (final: prev: {
+              jdk = prev.jdk17_headless;
+              jre = prev.jdk17_headless;
+            })
+          ];
         };
-      in
-      {
-        devShells = rec {
-          default = scala;
 
-          scala = pkgs.devshell.mkShell {
-            name = "scala-dev-shell";
+        devshells.default = {
+          name = "development-shell";
 
-            commands = [
-              { package = pkgs.sbt; }
-              { package = pkgs.yarn; }
-            ];
+          commands = [
+            { package = pkgs.sbt; }
+            { package = pkgs.yarn; }
+          ];
 
-            packages = [
-              pkgs.jdk
-              pkgs.nixpkgs-fmt
-              pkgs.nodejs
-            ];
+          packages = [
+            pkgs.jdk
+            pkgs.nixpkgs-fmt
+            pkgs.nodejs
+          ];
 
-            env = [
-              { name = "JAVA_HOME"; value = "${pkgs.jdk}"; }
-            ];
-          };
-
-          docs = pkgs.devshell.mkShell {
-            name = "docs-shell";
-
-            packages = [
-              (pkgs.python311.withPackages (ps: [ ps.mkdocs ps.mkdocs-material ]))
-            ];
-          };
+          env = [
+            { name = "JAVA_HOME"; value = "${pkgs.jdk}"; }
+          ];
         };
-      }
-    );
+
+        devshells.docs = {
+          name = "docs-shell";
+
+          packages = [
+            (pkgs.python311.withPackages (ps: [ ps.mkdocs ps.mkdocs-material ]))
+          ];
+        };
+      };
+
+    };
 }
