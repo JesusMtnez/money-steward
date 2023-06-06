@@ -1,6 +1,6 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 
-val scalaV = "3.2.2"
+val scalaV = "3.3.0"
 
 ThisBuild / organization := "es.jesusmtnez"
 ThisBuild / organizationName := "JesusMtnez"
