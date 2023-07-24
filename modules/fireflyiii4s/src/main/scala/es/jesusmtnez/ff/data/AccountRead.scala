@@ -4,9 +4,9 @@ import cats.syntax.all.*
 import io.circe.*
 
 final case class AccountRead(
-  `type`: String,
-  id: String,
-  attributes: Account
+    `type`: String,
+    id: String,
+    attributes: Account
 )
 
 object AccountRead:
