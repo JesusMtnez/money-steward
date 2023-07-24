@@ -25,7 +25,7 @@ object About:
         ]]
       ] =
         RequestConstructor
-          .requestWithNoBody[SystemInfo, FireflyError](
+          .requestWithNoBody[FireflySingleResponse[SystemInfo], FireflyError](
             host,
             auth,
             Method.GET,
