@@ -12,18 +12,19 @@ object RequestConstructor {
       host: Uri,
       auth: Auth,
       method: Method,
-      endpoint: String
+      endpoint: String,
+      parameters: Map[String, String] = Map.empty
   ) =
     val req = basicRequest
       .method(
         method,
-        host.withWholePath(endpoint)
+        host.withWholePath(endpoint).withParams(parameters)
       )
       .header(
         Header("User-Agent", "fireflyiii.scala/0.0.1"),
         replaceExisting = true
       )
-      .response(asJsonEither[E, FireflySingleResponse[R]])
+      .response(asJsonEither[E, R])
 
     setAuth(auth)(req)
 
