@@ -1,7 +1,6 @@
 package es.jesusmtnez.ff.api
 
 import es.jesusmtnez.ff.*
-import es.jesusmtnez.ff.data.*
 import io.circe.Decoder
 import sttp.client3.*
 import sttp.client3.circe.*
