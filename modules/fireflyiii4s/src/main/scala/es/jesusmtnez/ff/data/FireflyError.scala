@@ -3,7 +3,6 @@ package es.jesusmtnez.ff.data
 import cats.syntax.functor.*
 import io.circe.Decoder
 import io.circe.generic.auto._
-import io.circe.syntax.*
 
 sealed trait FireflyError
 final case class ValidationError(message: String)
