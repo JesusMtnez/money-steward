@@ -8,7 +8,7 @@ ThisBuild / startYear := Some(2023)
 ThisBuild / licenses := Seq(License.MIT)
 ThisBuild / scalaVersion := scalaV
 
-val catsV = "2.9.0"
+val catsV = "2.10.0"
 val catsEffectV = "3.5.1"
 val munitV = "0.7.29"
 val munitCE3V = "1.0.7"
