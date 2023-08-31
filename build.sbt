@@ -21,7 +21,7 @@ lazy val fireflyiii4s = project
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.client3" %% "core" % sttpV,
       "com.softwaremill.sttp.client3" %% "circe" % sttpV,
-      "io.circe" %% "circe-generic" % "0.14.5"
+      "io.circe" %% "circe-generic" % "0.14.6"
     )
   )
 
