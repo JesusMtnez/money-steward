@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v4.0.0
 
     - name: "Install Nix ❄️"
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v23
 
     - name: "Build 🛠️"
       run: "nix build .#docs"
