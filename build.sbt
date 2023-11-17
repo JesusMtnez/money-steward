@@ -12,7 +12,7 @@ val catsV = "2.10.0"
 val catsEffectV = "3.5.2"
 val munitV = "0.7.29"
 val munitCE3V = "1.0.7"
-val sttpV = "3.9.0"
+val sttpV = "3.9.1"
 
 lazy val fireflyiii4s = project
   .in(file("modules/fireflyiii4s"))
