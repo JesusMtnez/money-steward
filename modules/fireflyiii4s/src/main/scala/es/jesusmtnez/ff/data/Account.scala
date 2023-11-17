@@ -11,16 +11,16 @@ final case class Account(
     active: Option[Boolean],
     // order: Option[Int],
     name: String,
-    `type`: String, // TODO: ADT
+    `type`: String,              // TODO: ADT
     accountRole: Option[String], // TODO ADT
-    currencyId: Option[String], // TODO Newtype
+    currencyId: Option[String],  // TODO Newtype
     currencyCode: Option[String],
     currencySymbol: Option[String],
     currencyDecimalPlaces: Option[Int],
     currencyBalance: Option[String],
     currencyBalanceDate: Option[LocalDate],
-    iban: Option[String], // TODO Newtype
-    bic: Option[String], // TODO Newtype
+    iban: Option[String],          // TODO Newtype
+    bic: Option[String],           // TODO Newtype
     accountNumber: Option[String], // TODO Newtype
     // openingBalance: String,
     // openingBalanceDate: Option[ZonedDateTime],
