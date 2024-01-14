@@ -15,7 +15,7 @@ steps:
     secrets:
       - CODEBERG_TOKEN
     commands:
-      - WORKDIR=`mktemp`
+      - WORKDIR=`mktemp -d`
       - cp .domains $WORKDIR || true
       - cp -ar result/. $WORKDIR/
       - cd WORKDIR
