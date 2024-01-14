@@ -9,6 +9,8 @@ steps:
     commands:
       - echo 'experimental-features = flakes nix-command' >> /etc/nix/nix.conf
       - nix build .#docs
+      - mkdir public
+      - cp -ar result/. public/
 
   deploy:
     image: alpine/git:2.43.0
@@ -17,7 +19,7 @@ steps:
     commands:
       - WORKDIR=`mktemp -d`
       - cp .domains $WORKDIR || true
-      - cp -ar result/. $WORKDIR/
+      - cp -ar public/. $WORKDIR/
       - cd WORKDIR
       - git init
       - git checkout --orphan pages
