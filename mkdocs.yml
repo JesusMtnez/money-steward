@@ -1,5 +1,5 @@
 site_name: Money Steward
-site_url: https://jesusmtnez.es/money-steward
+site_url: https://jesusmtnez.codeberg.page/money-steward
 
 nav:
   - Home: index.md
