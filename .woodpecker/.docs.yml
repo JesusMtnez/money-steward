@@ -20,7 +20,7 @@ steps:
       - WORKDIR=`mktemp -d`
       - cp .domains $WORKDIR || true
       - cp -ar public/. $WORKDIR/
-      - cd WORKDIR
+      - cd $WORKDIR
       - git init
       - git checkout --orphan pages
       - git add --all .
