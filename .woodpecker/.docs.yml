@@ -1,0 +1,29 @@
+---
+when:
+  - branch: main
+    path: [ 'docs/**', "mkdocs.yml", "flake.*", ".woodpecker/.docs.yml"]
+
+steps:
+  build:
+    image: nixos/nix:2.19.2
+    commands:
+      - echo 'experimental-features = flakes nix-command' >> /etc/nix/nix.conf
+      - nix build .#docs
+
+  deploy:
+    image: alpine/git:2.43.0
+    secrets:
+      - CODEBERG_TOKEN
+    commands:
+      - WORKDIR=`mktemp`
+      - cp .domains $WORKDIR || true
+      - cp -ar result/. $WORKDIR/
+      - cd WORKDIR
+      - git init
+      - git checkout --orphan pages
+      - git add --all .
+      - git commit --author "JesusMtnez[bot] <no-reply@codeberg.org>" --message "Deploy pages"
+      - git push --force https://$CODEBERG_TOKEN@codeberg.org/$CI_REPO pages
+    when:
+      - event: push
+        branch: main
