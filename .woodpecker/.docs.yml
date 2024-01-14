@@ -3,9 +3,6 @@ when:
   - branch: main
     path: [ 'docs/**', "mkdocs.yml", "flake.*", ".woodpecker/.docs.yml"]
 
-workspace:
-  base: /docs
-
 steps:
   build:
     image: nixos/nix:2.19.2
